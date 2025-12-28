@@ -66,10 +66,27 @@
 
 // #parse-volt("<")
 
+// 1fr => multiples
+// 100% => ratio
+// 1.2 => absolute length
 #let resolve-length(len, full: 1) = if type(len) == ratio {
-  len/100% * full
+  len / 100% * full
 } else if type(len) == fraction {
-  len/1fr * full
+  len / 1fr * full
 } else {
   len
 }
+
+#let find-next(
+  index, // current index
+  cond, // condition to find
+  arr: (), // the array
+  // -> (index, value)
+) = {
+  let len = arr.len() 
+  range(len).zip(arr).filter(((i, v)) => { i > index and cond(v) }).first()
+}
+
+// #let arr = ((9, "a"), (9, "b"), (8, "d"), (9, "c"))
+// #find-next(1, v => v.at(0) == 9, arr: arr) 
+// -> (3, (9, "c"))
