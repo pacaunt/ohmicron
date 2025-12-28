@@ -1,4 +1,4 @@
-#import "../src/chemformula.typ": *
+#import "../src/lib.typ": *
 
 #let bases = ("A", "Aa", "(Aa)", "[A(a)]", "Aa(Aa)")
 #let exponents = ("2", "+", "-", "II")
