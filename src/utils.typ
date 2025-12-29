@@ -1,11 +1,25 @@
+#import "dependencies.typ": cetz
+
+#let spread(center, angle, length) = {
+  ((to: center, rel: (angle, -length / 2)), (to: center, rel: (angle, length / 2)))
+}
+
+#let merge-dict = cetz.util.merge-dictionary.with(overwrite: true)
+
+#let resolve-style(ctx, default: none, styles, root: none) = {
+  if default == none {
+    default = cetz.styles.resolve(ctx, root: root)
+  }
+  merge-dict(default, styles)
+}
 /// Parse mark notation
 /// * means having a filled mark there,
 ///
 #let parse-nodes(
   txt,
   styles: (
-    "*": (fill: black),
-    "o": (:),
+    "*": (fill: black, symbol: "o"),
+    "o": (symbol: "o"),
   ),
 ) = {
   let (start, end) = txt.split("-")
@@ -13,9 +27,9 @@
 
   for (mark, pos) in (start, end).zip(("start", "end")) {
     if mark == "*" {
-      out.insert(pos + "-mark", (symbol: "o", ..styles.at("*")))
+      out.insert(pos + "-mark", styles.at("*"))
     } else if mark == "o" {
-      out.insert(pos + "-mark", (symbol: "o", ..styles.at("o")))
+      out.insert(pos + "-mark", styles.at("o"))
     } else {
       out.insert(pos + "-mark", ())
     }
@@ -83,10 +97,11 @@
   arr: (), // the array
   // -> (index, value)
 ) = {
-  let len = arr.len() 
+  let len = arr.len()
   range(len).zip(arr).filter(((i, v)) => { i > index and cond(v) }).first()
 }
 
 // #let arr = ((9, "a"), (9, "b"), (8, "d"), (9, "c"))
-// #find-next(1, v => v.at(0) == 9, arr: arr) 
+// #find-next(1, v => v.at(0) == 9, arr: arr)
 // -> (3, (9, "c"))
+

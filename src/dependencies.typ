@@ -1,1 +1,1 @@
-#import "@preview/cetz:0.4.2" as cetz: draw, canvas, vector, decorations, util
+#import "@preview/cetz:0.4.2" as cetz: draw, canvas, vector, decorations,
