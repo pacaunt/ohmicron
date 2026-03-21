@@ -248,7 +248,7 @@
   )
 }
 
-#let wiring(
+#let to(
   ..comp-styles,
   name: none,
   anchor: "center",
@@ -518,19 +518,19 @@
   // )
   // let resistor = resistor.with(style: (stroke: red + 1.5pt))
   set-style(resistor: (stroke: red + 1.5pt), isource: (arrow-stroke: red + 1.5pt), battery: (stroke: red), switch: (stroke: red, n: ("*": (fill: red, stroke: 0pt))))
-  wiring(
+  to(
     resistor("r1", (0, 0), (0, 3), label: $R$, v: (label: $V_0$, pos: "_"), f: $I$),
     short("s1", (), (rel: (2, 0)), i: (label: $I_0$, distance: 50%, style: (fill: green, stroke: green))),
     resistor("r2", (), (rel: (3, 0)), label: $4 Omega$, n: "*-o"),
     battery("b1", (), ((), "|-", "r1"), label: $V$),
     close: true,
   )
-  wiring(
+  to(
     resistor("r3", "s1.end", ((), "|-", "r1"), label: $6 Omega$),
   )
 
   set-origin((0, -4))
-  wiring(
+  to(
     switch("s1", (0, 0), (3, 0), style: (n: "*-*"), close: false),
     resistor("r1", (), (rel: (0, -3)), label: $6 Omega$), 
     battery("b1", (), ((), "-|", "r1"), label: $9"V"$), 
